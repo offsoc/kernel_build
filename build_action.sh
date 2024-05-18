@@ -3,7 +3,7 @@
 # VERSION=$(grep 'Kernel Configuration' < config | awk '{print $3}')
 
 # add deb-src to sources.list
-# sed -i "/deb-src/s/# //g" /etc/apt/sources.list
+sed -i "/deb-src/s/# //g" /etc/apt/sources.list
 
 # install dep
 apt update
@@ -15,9 +15,9 @@ cd "${GITHUB_WORKSPACE}" || exit
 
 # download kernel source
 # wget http://www.kernel.org/pub/linux/kernel/v5.x/linux-"$VERSION".tar.xz
-wget https://github.com/torvalds/linux/archive/refs/tags/v6.9.tar.gz
-tar -xf linux-"$VERSION".tar.xz
-cd linux-"$VERSION" || exit
+wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.9.1.tar.xz
+tar -xf linux-6.9.1.tar.xz
+cd linux-6.9.1 || exit
 
 # copy config file
 cp ../config .config
