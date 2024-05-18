@@ -7,15 +7,15 @@ WORK_DIR="/tmp/kernel_build"
 MAJOR_VERSION="6"
 
 # 安装构建内核所需的依赖
-sudo apt-get update
-sudo apt-get install -y build-essential  libncurses5-dev  bison flex libssl-dev libelf-dev bc git fakeroot xz-utils lsb-release
+apt-get update
+apt-get install -y build-essential  libncurses5-dev  bison flex libssl-dev libelf-dev bc git fakeroot xz-utils lsb-release
 
 # 创建工作目录并进入
 mkdir -p $WORK_DIR
 cd $WORK_DIR
 
 # 克隆 Linux 内核源代码仓库
-git clone --depth 1 https://github.com/torvalds/linux.git
+git clone  https://github.com/torvalds/linux.git
 
 # 进入内核源代码目录
 cd linux
