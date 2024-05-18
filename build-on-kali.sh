@@ -53,15 +53,15 @@ cp ../config .config
 # 构建内核
 # make -j$(nproc)
 CPU_CORES=$(($(grep -c processor < /proc/cpuinfo)*2))
-#make deb-pkg -j"$CPU_CORES"
-make clean
-make deb-pkg   -j"$CPU_CORES" LOCALVERSION=-custom KDEB_PKGVERSION=$(make kernelversion)-1
+make deb-pkg -j"$CPU_CORES"
+# make clean
+# make deb-pkg   -j"$CPU_CORES" LOCALVERSION=-custom KDEB_PKGVERSION=$(make kernelversion)-1
 
 # 安装内核模块和相关文件到临时目录
-# make modules_install INSTALL_MOD_PATH=/tmp/kernel_install
+make modules_install INSTALL_MOD_PATH=/tmp/kernel_install
 
 # 创建 Debian 内核软件包
-# make bindeb-pkg
+make bindeb-pkg
 # move deb packages to artifact dir
 cd ..
 rm -rfv *dbg*.deb
