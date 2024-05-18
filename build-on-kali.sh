@@ -52,8 +52,10 @@ scripts/config --disable DEBUG_INFO
 
 # 构建内核
 # make -j$(nproc)
+CPU_CORES=$(($(grep -c processor < /proc/cpuinfo)*2))
+#make deb-pkg -j"$CPU_CORES"
 make clean
-make deb-pkg LOCALVERSION=-custom KDEB_PKGVERSION=$(make kernelversion)-1
+make deb-pkg   -j"$CPU_CORES" LOCALVERSION=-custom KDEB_PKGVERSION=$(make kernelversion)-1
 
 # 安装内核模块和相关文件到临时目录
 # make modules_install INSTALL_MOD_PATH=/tmp/kernel_install
