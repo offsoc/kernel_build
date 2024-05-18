@@ -1,7 +1,5 @@
 #!/bin/bash
-
-VERSION=$(grep 'Kernel Configuration' < /boot/config-"$(uname -r)" | awk '{print $3}')
-
+# VERSION=$(grep 'Kernel Configuration' < /boot/config-"$(uname -r)" | awk '{print $3}')
 # 定义工作目录
 WORK_DIR="/tmp/kernel_build"
 
