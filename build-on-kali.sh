@@ -54,6 +54,11 @@ make deb-pkg LOCALVERSION=-custom KDEB_PKGVERSION=$(make kernelversion)-1
 
 # 创建 Debian 内核软件包
 # make bindeb-pkg
+# move deb packages to artifact dir
+cd ..
+rm -rfv *dbg*.deb
+mkdir "artifact"
+mv ./*.deb artifact/
 
 # 在当前目录中找到生成的 Debian 内核软件包
 # 内核镜像文件通常以 linux-image-<version>.deb 命名
