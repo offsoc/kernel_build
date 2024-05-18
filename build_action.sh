@@ -31,9 +31,9 @@ source ../patch.d/*.sh
 
 # build deb packages
 CPU_CORES=$(($(grep -c processor < /proc/cpuinfo)*2))
-#make deb-pkg -j"$CPU_CORES"
-make clean
-make deb-pkg -j"$CPU_CORES" LOCALVERSION=-custom KDEB_PKGVERSION=$(make kernelversion)-1
+make deb-pkg -j"$CPU_CORES"
+# make clean
+# make deb-pkg -j"$CPU_CORES" LOCALVERSION=-custom KDEB_PKGVERSION=$(make kernelversion)-1
 
 # move deb packages to artifact dir
 cd ..
