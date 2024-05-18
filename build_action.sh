@@ -23,7 +23,7 @@ cd linux-6.9.1 || exit
 cp ../config .config
 
 # disable DEBUG_INFO to speedup build
-# scripts/config --disable DEBUG_INFO
+scripts/config --disable DEBUG_INFO
 
 # apply patches
 # shellcheck source=src/util.sh
@@ -40,3 +40,4 @@ cd ..
 rm -rfv *dbg*.deb
 mkdir "artifact"
 mv ./*.deb artifact/
+
