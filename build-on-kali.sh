@@ -47,7 +47,7 @@ git checkout $LATEST_TAG
 cp ../config .config
 
 # disable DEBUG_INFO to speedup build
-scripts/config --disable DEBUG_INFO
+# scripts/config --disable DEBUG_INFO
 
 
 # 构建内核
