@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-VERSION=$(grep 'Kernel Configuration' < config | awk '{print $3}')
+# VERSION=$(grep 'Kernel Configuration' < config | awk '{print $3}')
 
 # add deb-src to sources.list
-sed -i "/deb-src/s/# //g" /etc/apt/sources.list
+# sed -i "/deb-src/s/# //g" /etc/apt/sources.list
 
 # install dep
 apt update
@@ -14,7 +14,8 @@ apt build-dep -y linux
 cd "${GITHUB_WORKSPACE}" || exit
 
 # download kernel source
-wget http://www.kernel.org/pub/linux/kernel/v5.x/linux-"$VERSION".tar.xz
+# wget http://www.kernel.org/pub/linux/kernel/v5.x/linux-"$VERSION".tar.xz
+wget https://github.com/torvalds/linux/archive/refs/tags/v6.9.tar.gz
 tar -xf linux-"$VERSION".tar.xz
 cd linux-"$VERSION" || exit
 
@@ -30,7 +31,9 @@ source ../patch.d/*.sh
 
 # build deb packages
 CPU_CORES=$(($(grep -c processor < /proc/cpuinfo)*2))
-make deb-pkg -j"$CPU_CORES"
+#make deb-pkg -j"$CPU_CORES"
+make clean
+make deb-pkg -j"$CPU_CORES" LOCALVERSION=-custom KDEB_PKGVERSION=$(make kernelversion)-1
 
 # move deb packages to artifact dir
 cd ..
