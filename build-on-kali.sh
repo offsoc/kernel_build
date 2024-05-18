@@ -42,7 +42,13 @@ git checkout $LATEST_TAG
 
 # 配置内核
 # 以下是一个简单的配置示例，您可能需要根据需求进行修改
-make defconfig
+#make defconfig
+# copy config file
+cp ../config .config
+
+# disable DEBUG_INFO to speedup build
+scripts/config --disable DEBUG_INFO
+
 
 # 构建内核
 # make -j$(nproc)
