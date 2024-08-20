@@ -2,7 +2,7 @@
 # VERSION=$(grep 'Kernel Configuration' < /boot/config-"$(uname -r)" | awk '{print $3}')
 # 定义工作目录
 WORK_DIR="/tmp/kernel_build"
-
+sed -i "/deb-src/s/# //g" /etc/apt/sources.list
 # 定义要检查的主要版本
 MAJOR_VERSION="6"
 
@@ -15,36 +15,38 @@ mkdir -p $WORK_DIR
 cd $WORK_DIR
 
 # 克隆 Linux 内核源代码仓库
-git clone  https://github.com/torvalds/linux.git
+# git clone  https://github.com/torvalds/linux.git
+wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.10.6.tar.xz
 
 # 进入内核源代码目录
-cd linux
+tar xaf linux-6.10.6.tar.xz
+cd linux-6.10.6
 
 # 获取所有标签，并筛选出符合条件的标签
-TAGS=$(git tag | grep -E "^v$MAJOR_VERSION\.[0-9]+$")
+# TAGS=$(git tag | grep -E "^v$MAJOR_VERSION\.[0-9]+$")
 
 # 如果没有符合条件的标签，则退出
-if [ -z "$TAGS" ]; then
-    echo "No tags matching the specified format found."
-    exit 1
-fi
+# if [ -z "$TAGS" ]; then
+#    echo "No tags matching the specified format found."
+#    exit 1
+#fi
 
 # 输出符合条件的标签
-echo "Tags matching the specified format:"
-echo "$TAGS"
+#echo "Tags matching the specified format:"
+# echo "$TAGS"
 
 # 选择最新的标签进行构建
-LATEST_TAG=$(echo "$TAGS" | sort -V | tail -n 1)
-echo "Latest tag: $LATEST_TAG"
+# LATEST_TAG=$(echo "$TAGS" | sort -V | tail -n 1)
+# echo "Latest tag: $LATEST_TAG"
 
 # 检出最新标签的代码
-git checkout $LATEST_TAG
+# git checkout $LATEST_TAG
 
 # 配置内核
 # 以下是一个简单的配置示例，您可能需要根据需求进行修改
 #make defconfig
 # copy config file
-cp ../config .config
+cp ../config-6.8.11-amd64 .config
 
 # disable DEBUG_INFO to speedup build
 # scripts/config --disable DEBUG_INFO
